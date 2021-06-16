@@ -9,6 +9,17 @@ export async function fetchJson<Response = any>(url: string, init?: RequestInit)
       }
     })
 
-
   return response.json()
+}
+
+export function stripIndex(url:string): number {
+  let index: number = 0;
+
+  try {
+    index = Number(url.split('/')[5])
+  } catch(error) {
+    console.error(error);
+  }
+
+  return index;
 }

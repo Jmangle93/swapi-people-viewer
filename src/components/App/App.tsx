@@ -2,7 +2,9 @@ import People from '../People';
 
 function App() {
   return (
-    <People />
+    <div>
+      <People />
+    </div>
   );
 }
 
