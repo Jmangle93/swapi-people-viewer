@@ -10,7 +10,6 @@ interface PersonProps {
 
 function Person({ person, isLoading }: PersonProps) {
   const films: number[] = person.films.map(film => stripIndex(film));
-  console.log(films);
   return isLoading ? <p>Loading...</p> : 
     <div>
       <h2>{person.name}</h2>

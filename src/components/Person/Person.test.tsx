@@ -5,7 +5,7 @@ import Person from './Person'
 
 describe('<Person />', () => {
   test('should render the person\'s name', () => {
-    const person: PersonType = { name: 'Jek Tono Porkins', films: ['https://swapi.dev/api/films/1']}
+    const person: PersonType = { name: 'Jek Tono Porkins', films: ['https://swapi.dev/api/films/1'], species: []}
 
     render(<Person person={person} isLoading={false}/>)
 
