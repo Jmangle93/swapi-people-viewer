@@ -6,6 +6,6 @@ interface FilmProps {
 }
 
 function Film({ film, isLoading }: FilmProps) {
-  return isLoading ? <p>Loading...</p> : <div>{film.title}</div>
+  return isLoading ? <p>Loading...</p> : <p>{film.title}</p>
 }
 export default Film

@@ -1,18 +1,12 @@
-import { stripIndex } from '../../api';
-
-import Films from '../Films';
 import { SpeciesType } from '../../types';
 
-interface PersonProps {
+interface SpeciesProps {
   isLoading: boolean
   oneSpecies: SpeciesType
 }
 
-function Person({ oneSpecies, isLoading }: PersonProps) {
-  return isLoading ? <p>Loading...</p> : 
-    <div>
-      <h2>{oneSpecies.name}</h2>
-    </div>;
+function OneSpecies({ oneSpecies, isLoading }: SpeciesProps) {
+  return isLoading ? <p>Loading...</p> : <p>{oneSpecies.name}</p>;
 }
 
-export default Person
+export default OneSpecies

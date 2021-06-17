@@ -1,22 +1,33 @@
 import React from 'react';
 
 import { fetchJson } from '../../api';
-import { PersonType } from '../../types';
+import { SpeciesType } from '../../types';
 import OneSpecies from '../OneSpecies';
 
-function Species() {
-  const [species, setSpecies] = React.useState<PersonType[]>([]);
+interface Props {
+    selection: number[]
+}
+
+function Species(props: Props) {
+  const selection: number[] = props.selection ? props.selection : [1];
+  const [selected, setSelected] = React.useState<SpeciesType[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    fetchJson<{ results: PersonType[] }>('species')
-      .then(speciesResponse => setSpecies(speciesResponse.results));
+    fetchJson<{ results: SpeciesType[] }>('species')
+      .then(speciesResponse => {
+          let selectedSpecies: SpeciesType[] = [];
+          selection.forEach(choice => {
+            selectedSpecies.push(speciesResponse.results[choice-1])
+          });
+          setSelected(selectedSpecies);
+        });
     setIsLoading(false);
-  }, [])
+  }, []);
 
   return (
     <div>
-      {species.map(oneSpecies => <OneSpecies oneSpecies={oneSpecies} isLoading={isLoading}/>)}
+      {selected.map(oneSpecies => <OneSpecies oneSpecies={oneSpecies} isLoading={isLoading}/>)}
     </div>
   )
 }
