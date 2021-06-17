@@ -9,7 +9,7 @@ interface Props {
 }
 
 function Species(props: Props) {
-  const selection: number[] = props.selection ? props.selection : [1];
+  const selection: number[] = !(props.selection.length === 0) ? props.selection : [1];
   const [selected, setSelected] = React.useState<SpeciesType[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
