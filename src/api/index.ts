@@ -1,6 +1,6 @@
 export async function fetchJson<Response = any>(url: string, init?: RequestInit): Promise<Response> {
   const response = await fetch(
-    `https://swapi.dev/api/${url}/`,
+    `https://swapi.dev/api/${url}`,
     {
       ...init ?? {},
       headers: {
@@ -8,10 +8,10 @@ export async function fetchJson<Response = any>(url: string, init?: RequestInit)
         'Content-Type': 'application/json',
       }
     })
-
-  return response.json()
+  return response.json();
 }
 
+// This works, but seems brittle
 export function stripIndex(url:string): number {
   let index: number = 0;
 

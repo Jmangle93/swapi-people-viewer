@@ -6,7 +6,7 @@ interface SpeciesProps {
 }
 
 function OneSpecies({ oneSpecies, isLoading }: SpeciesProps) {
-  return isLoading ? <p>Loading...</p> : <p>{oneSpecies.name}</p>;
+  return (isLoading || !oneSpecies) ? <p>Loading...</p> : <p>{oneSpecies.name}</p>;
 }
 
 export default OneSpecies

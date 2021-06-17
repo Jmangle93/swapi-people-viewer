@@ -4,15 +4,21 @@ import { fetchJson } from '../../api'
 import { PersonType } from '../../types'
 import Person from '../Person'
 
-function People() {
+interface Props {
+  searchTerm: string;
+}
+
+function People(props: Props) {
   const [people, setPeople] = React.useState<PersonType[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    fetchJson<{ results: PersonType[] }>('people')
-      .then(peopleResponse => setPeople(peopleResponse.results));
+    fetchJson<{ results: PersonType[] }>('people/?search=' + props.searchTerm)
+      .then(peopleResponse => {
+        setPeople(peopleResponse.results);
+      });
     setIsLoading(false);
-  }, [])
+  }, [props.searchTerm])
 
   return (
     <div>
