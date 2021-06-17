@@ -9,7 +9,9 @@ interface Props {
 }
 
 function Species(props: Props) {
+  // This could be silently failing with a default case of human (1). Should look to test edge cases and fix brittle index splice in api/. 
   const selection: number[] = !(props.selection.length === 0) ? props.selection : [1];
+
   const [selected, setSelected] = React.useState<SpeciesType[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
