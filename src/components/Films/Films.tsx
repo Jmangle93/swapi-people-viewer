@@ -16,13 +16,13 @@ function Films(props: Props) {
   React.useEffect(() => {
     fetchJson<{ results: FilmType[] }>('films')
       .then(filmResponse => {
-          let selectedFilms: FilmType[] = [];
-          selection.forEach(choice => {
-            selectedFilms.push(filmResponse.results[choice-1])
-          });
-          setSelected(selectedFilms);
-          setIsLoading(false);
-        })
+        let selectedFilms: FilmType[] = [];
+        selection.forEach(choice => {
+        selectedFilms.push(filmResponse.results[choice-1])
+        });
+        setSelected(selectedFilms);
+        setIsLoading(false);
+    })
   }, [])
 
   return isLoading ? <p>Loading...</p> : (
