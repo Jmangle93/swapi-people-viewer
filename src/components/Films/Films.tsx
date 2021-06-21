@@ -8,28 +8,36 @@ interface Props {
     selection: number[];
 }
 
+// To Do: Refactor Films to not worry about selection, merely return full results of /films
+// Refactor Film to receive one selection 1-6 and return only that Film.
 function Films(props: Props) {
-  const selection: number[] = props ? props.selection : [1, 2, 3, 4, 5, 6];
   const [selected, setSelected] = React.useState<FilmType[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
+    let isMounted = true;
     fetchJson<{ results: FilmType[] }>('films')
       .then(filmResponse => {
         let selectedFilms: FilmType[] = [];
-        selection.forEach(choice => {
+        props.selection.forEach(choice => {
         selectedFilms.push(filmResponse.results[choice-1])
         });
         setSelected(selectedFilms);
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
     })
-  }, [])
+    .catch(err => {
+      console.error(err);
+    })
 
-  return isLoading ? <p>Loading...</p> : (
-    <div>
-      {selected.map(film => <Film film={film} isLoading={isLoading}/>)}
-    </div>
-  );
+    return function cleanup() {
+      console.log('Unmount films');
+      isMounted = false;
+    }
+  }, [props.selection])
+
+  return isLoading ? <p>Loading...</p> : (<div>{selected.map(film => <Film film={film} isLoading={isLoading}/>)}</div>);
 }
 
 export default Films

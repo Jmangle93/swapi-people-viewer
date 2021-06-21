@@ -13,18 +13,24 @@ function People(props: Props) {
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
+    let isMounted = true;
     fetchJson<{ results: PersonType[] }>('people/?search=' + props.searchTerm)
       .then(peopleResponse => {
         setPeople(peopleResponse.results);
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      })
+      .catch(err => {
+        console.error(err);
       });
-    setIsLoading(false);
+    return function cleanup() {
+      console.log('Unmount people');
+      isMounted = false;
+    }
   }, [props.searchTerm])
 
-  return (
-    <div>
-      {people.map(person => <Person person={person} isLoading={isLoading}/>)}
-    </div>
-  )
+  return isLoading ? <p>Loading...</p> : <div> {people.map(person => <Person person={person} isLoading={isLoading}/>)} </div>;
 }
 
 export default People

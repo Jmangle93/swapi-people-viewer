@@ -14,11 +14,21 @@ function Species(props: Props) {
 
   React.useEffect(() => {
     const selection = props.selection ? props.selection : 1;
+    let isMounted = true;
     fetchJson('species/' + selection.toString())
       .then(speciesResponse => {
         setSelected(speciesResponse);
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      })
+      .catch(err => {
+        console.error(err);
       });
-    setIsLoading(false);
+      return function cleanup() {
+        console.log('Unmount species');
+        isMounted = false;
+      }
   }, [props.selection]);
 
   return (isLoading || !selected) ? <p>Loading...</p> : <p>{selected.name}</p>;

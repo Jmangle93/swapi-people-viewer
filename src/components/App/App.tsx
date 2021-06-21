@@ -9,14 +9,15 @@ function App() {
     setSearchTerm(event.target.value);
   };
 
-  React.useEffect(() => {
-    setPeopleDiv(<People searchTerm={searchTerm}/>);
-  }, [searchTerm]);
+  function doSearch() {
+    setPeopleDiv(<People searchTerm={searchTerm}/>)
+  }
   
   return (
     <div>
       <div>
         <input type="text" placeholder="Search for a character..." value={searchTerm} onChange={(e) => handleChange(e)}></input>
+        <button type="button" onClick={doSearch}>Search</button>
       </div>
       {peopleDiv}
     </div>
