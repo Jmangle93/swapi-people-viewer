@@ -11,9 +11,9 @@ interface Props {
 function Species(props: Props) {
   const [selected, setSelected] = React.useState<SpeciesType>();
   const [isLoading, setIsLoading] = React.useState<boolean>(props.isLoading);
-  const aborter = new AbortController();
 
   React.useEffect(() => {
+    const aborter = new AbortController();
     const selection = props.selection ? props.selection : 1;
     fetchJson('species/' + selection.toString())
       .then(speciesResponse => {

@@ -13,9 +13,9 @@ interface Props {
 function Films(props: Props) {
   const [selected, setSelected] = React.useState<FilmType[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
-  const aborter = new AbortController();
 
   React.useEffect(() => {
+    const aborter = new AbortController();
     fetchJson<{ results: FilmType[] }>('films')
       .then(filmResponse => {
         let selectedFilms: FilmType[] = [];

@@ -11,12 +11,15 @@ interface Props {
 function People(props: Props) {
   const [people, setPeople] = React.useState<PersonType[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
-  const aborter = new AbortController();
+  
 
   React.useEffect(() => {
+    const aborter = new AbortController();
     fetchJson<{ results: PersonType[] }>('people/?search=' + props.searchTerm)
       .then(peopleResponse => {
-        setPeople(peopleResponse.results);
+        if (peopleResponse.results.length > 0) {
+          setPeople(peopleResponse.results);
+        }
         setIsLoading(false);
       })
       .catch(err => {
@@ -26,8 +29,12 @@ function People(props: Props) {
       aborter.abort();
     }
   }, [props.searchTerm])
-
-  return isLoading ? <p>Loading Star Wars people...</p> : <div> {people.map(person => <Person person={person} isLoading={isLoading}/>)} </div>;
+  
+  if (people.length === 0 && !isLoading) {
+    return <div><p>Search returned no results...</p></div>;
+  } else {
+    return isLoading ? <p>Loading Star Wars people...</p> : <div> {people.map(person => <Person person={person} isLoading={isLoading}/>)} </div>;
+  }
 }
 
 export default People
