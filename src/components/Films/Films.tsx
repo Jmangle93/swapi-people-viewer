@@ -34,7 +34,7 @@ function Films(props: Props) {
     }
   }, [props.selection])
 
-  return isLoading ? <p>Loading films...</p> : (<div>{selected.map(film => <Film film={film} isLoading={isLoading}/>)}</div>);
+  return isLoading ? <p>Loading films...</p> : (<div>{selected.map(film => <Film key={film.episode_id} film={film} isLoading={isLoading}/>)}</div>);
 }
 
 export default Films

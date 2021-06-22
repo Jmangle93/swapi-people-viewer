@@ -1,15 +1,16 @@
 export interface FilmType {
   title: string
+  episode_id: number
 }
 
 export interface SpeciesType {
   name: string
   classification: string
   designation: string
-  averageHeight: string
-  skinColors: string
-  hairColors: string
-  averageLifespan: string
+  average_height: string
+  skin_colors: string
+  hair_colors: string
+  average_lifespan: string
   homeworld: string
   language: string
   people: string[]
@@ -23,12 +24,12 @@ export interface PersonType {
   name: string
   height: string
   mass: string
-  hairColor: string
-  skinColor: string
-  eyeColor: string
-  birthYear: string
+  hair_color: string
+  skin_color: string
+  eye_color: string
+  birth_year: string
   gender: string
-  homeWorld: string
+  homeworld: string
   films: string[]
   species: string[]
   vehicles: string[]
