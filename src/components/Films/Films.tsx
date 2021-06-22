@@ -13,9 +13,9 @@ interface Props {
 function Films(props: Props) {
   const [selected, setSelected] = React.useState<FilmType[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const aborter = new AbortController();
 
   React.useEffect(() => {
-    let isMounted = true;
     fetchJson<{ results: FilmType[] }>('films')
       .then(filmResponse => {
         let selectedFilms: FilmType[] = [];
@@ -23,21 +23,18 @@ function Films(props: Props) {
         selectedFilms.push(filmResponse.results[choice-1])
         });
         setSelected(selectedFilms);
-        if (isMounted) {
-          setIsLoading(false);
-        }
+        setIsLoading(false);
     })
     .catch(err => {
       console.error(err);
     })
 
     return function cleanup() {
-      console.log('Unmount films');
-      isMounted = false;
+      aborter.abort();
     }
   }, [props.selection])
 
-  return isLoading ? <p>Loading...</p> : (<div>{selected.map(film => <Film film={film} isLoading={isLoading}/>)}</div>);
+  return isLoading ? <p>Loading films...</p> : (<div>{selected.map(film => <Film film={film} isLoading={isLoading}/>)}</div>);
 }
 
 export default Films

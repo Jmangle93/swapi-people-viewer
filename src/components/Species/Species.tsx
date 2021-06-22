@@ -11,27 +11,24 @@ interface Props {
 function Species(props: Props) {
   const [selected, setSelected] = React.useState<SpeciesType>();
   const [isLoading, setIsLoading] = React.useState<boolean>(props.isLoading);
+  const aborter = new AbortController();
 
   React.useEffect(() => {
     const selection = props.selection ? props.selection : 1;
-    let isMounted = true;
     fetchJson('species/' + selection.toString())
       .then(speciesResponse => {
         setSelected(speciesResponse);
-        if (isMounted) {
-          setIsLoading(false);
-        }
+        setIsLoading(false);
       })
       .catch(err => {
         console.error(err);
       });
       return function cleanup() {
-        console.log('Unmount species');
-        isMounted = false;
+        aborter.abort();
       }
   }, [props.selection]);
 
-  return (isLoading || !selected) ? <p>Loading...</p> : <p>{selected.name}</p>;
+  return (isLoading || !selected) ? <p>Loading species...</p> : <p>{selected.name}</p>;
 }
 
 export default Species

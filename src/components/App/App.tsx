@@ -4,7 +4,7 @@ import People from '../People';
 function App() {
 
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [peopleDiv, setPeopleDiv] = React.useState(<p>Loading...</p>);
+  const [peopleDiv, setPeopleDiv] = React.useState(<p>Search for Star Wars people!</p>);
   const handleChange = (event : any) => {
     setSearchTerm(event.target.value);
   };

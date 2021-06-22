@@ -11,26 +11,23 @@ interface Props {
 function People(props: Props) {
   const [people, setPeople] = React.useState<PersonType[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const aborter = new AbortController();
 
   React.useEffect(() => {
-    let isMounted = true;
     fetchJson<{ results: PersonType[] }>('people/?search=' + props.searchTerm)
       .then(peopleResponse => {
         setPeople(peopleResponse.results);
-        if (isMounted) {
-          setIsLoading(false);
-        }
+        setIsLoading(false);
       })
       .catch(err => {
         console.error(err);
       });
     return function cleanup() {
-      console.log('Unmount people');
-      isMounted = false;
+      aborter.abort();
     }
   }, [props.searchTerm])
 
-  return isLoading ? <p>Loading...</p> : <div> {people.map(person => <Person person={person} isLoading={isLoading}/>)} </div>;
+  return isLoading ? <p>Loading Star Wars people...</p> : <div> {people.map(person => <Person person={person} isLoading={isLoading}/>)} </div>;
 }
 
 export default People

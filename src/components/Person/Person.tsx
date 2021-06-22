@@ -12,7 +12,8 @@ interface PersonProps {
 function Person({ person, isLoading }: PersonProps) {
   const films: number[] = person.films.map(film => stripIndex(film));
   const species: number = person.species.map(oneSpecies => stripIndex(oneSpecies))[0];
-  return isLoading ? <p>Loading...</p> : 
+
+  return isLoading ? <p>Loading person...</p> : 
     <div>
       <h2>{person.name}</h2>
       <p><strong>Appearances:</strong></p>
