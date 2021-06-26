@@ -34,7 +34,7 @@ function People(props: Props) {
   if (people.length === 0 && !isLoading) {
     return <div><p>Search returned no results...</p></div>;
   } else {
-    return isLoading ? <p>Loading Star Wars people...</p> : <div> {people.map(person => <Person key={stripIndex(person.url)} person={person} isLoading={isLoading}/>)} </div>;
+    return isLoading ? <p>Loading Star Wars people...</p> : <div> {people.map(person => <Person key={stripIndex(person.url)} person={person}/>)} </div>;
   }
 }
 

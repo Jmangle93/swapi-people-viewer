@@ -4,13 +4,12 @@ import { fetchJson } from '../../api';
 import { SpeciesType } from '../../types';
 
 interface Props {
-    isLoading: boolean
     selection: number
 }
 
 function Species(props: Props) {
   const [selected, setSelected] = React.useState<SpeciesType>();
-  const [isLoading, setIsLoading] = React.useState<boolean>(props.isLoading);
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
     const aborter = new AbortController();
